@@ -9,14 +9,15 @@
     </div>
 
     <nav class="flex-1 p-4 space-y-2 overflow-y-auto scrollbar-hide">
-        <a href="#" class="flex items-center space-x-3 px-4 py-3 bg-orange-50 text-orange-600 rounded-lg font-medium">
-            <i class="fas fa-chart-pie"></i>
-            <span>Statistiques</span>
-        </a>
-        <a href="#" class="flex items-center space-x-3 px-4 py-3 text-gray-600 hover:bg-orange-50 hover:text-orange-600 rounded-lg transition-colors">
-            <i class="fas fa-users"></i>
-            <span>Utilisateurs</span>
-        </a>
+    <a href="{{ route('admin.dashboard') }}" class="flex items-center space-x-3 px-4 py-3 bg-orange-50 text-orange-600 rounded-lg font-medium">
+        <i class="fas fa-chart-pie"></i>
+        <span>Tableau de Bord</span>
+    </a>
+    <a href="{{ route('admin.utilisateurs') }}" class="flex items-center space-x-3 px-4 py-3 text-gray-600 hover:bg-orange-50 hover:text-orange-600 rounded-lg transition-colors">
+        <i class="fas fa-users"></i>
+        <span>Utilisateurs</span>
+    </a>
+
         <a href="#" class="flex items-center space-x-3 px-4 py-3 text-gray-600 hover:bg-orange-50 hover:text-orange-600 rounded-lg transition-colors">
             <i class="fas fa-box"></i>
             <span>Produits</span>

@@ -20,4 +20,9 @@ Route::get('/admin/dashboard', function () {
     return view('admin.dashboard');
 })->name('admin.dashboard');
 
+Route::get('/admin/utilisateurs', function () {
+    return view('admin.gestion_users');
+})->name('admin.utilisateurs');
+
+
 require __DIR__.'/auth.php';
