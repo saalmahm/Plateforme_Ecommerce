@@ -1,12 +1,17 @@
 <x-guest-layout>
-   
+    <div class="flex-shrink-0 flex items-center">
+        <a href="{{ route('dashboard') }}" class="text-orange-500 text-xl font-bold">
+            ShopEase
+        </a>
+    </div>
+
     <form method="POST" action="{{ route('register') }}">
         @csrf
 
         <div class="mt-4">
-            <x-input-label for="name" :value="__('Name')" class="text-orange-500" />
-            <x-text-input id="name" class="block mt-1 w-full border-orange-300 focus:border-orange-500 focus:ring focus:ring-orange-200 focus:ring-opacity-50" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2 text-orange-500" />
+            <x-input-label for="nom" :value="__('Name')" class="text-orange-500" />
+            <x-text-input id="nom" class="block mt-1 w-full border-orange-300 focus:border-orange-500 focus:ring focus:ring-orange-200 focus:ring-opacity-50" type="text" name="nom" :value="old('nom')" required autofocus autocomplete="name" />
+            <x-input-error :messages="$errors->get('nom')" class="mt-2 text-orange-500" />
         </div>
 
         <div class="mt-4">
@@ -24,6 +29,7 @@
             <x-input-error :messages="$errors->get('password')" class="mt-2 text-orange-500" />
         </div>
 
+     
         <div class="mt-4">
             <x-input-label for="password_confirmation" :value="__('Confirm Password')" class="text-orange-500" />
             <x-text-input id="password_confirmation" class="block mt-1 w-full border-orange-300 focus:border-orange-500 focus:ring focus:ring-orange-200 focus:ring-opacity-50"

@@ -13,8 +13,7 @@ class User extends Authenticatable
         'nom', 
         'email', 
         'password', 
-        'role', 
-        'female'
+        'role'
     ];
 
     protected $hidden = [
@@ -34,5 +33,15 @@ class User extends Authenticatable
     public function commandes()
     {
         return $this->hasMany(Commande::class);
+    }
+
+    public function client()
+    {
+        return $this->hasOne(Client::class);
+    }
+
+    public function admin()
+    {
+        return $this->hasOne(Admin::class);
     }
 }

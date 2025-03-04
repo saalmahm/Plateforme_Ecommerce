@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Panier extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'user_id'
     ];
@@ -14,17 +17,24 @@ class Panier extends Model
     {
         return $this->belongsTo(User::class);
     }
-    
+
     public function produits()
     {
-        return $this->belongsToMany(Produit::class, 'panier_produit')
-                    ->withPivot('quantite');
+        return $this->belongsToMany(Produit::class, 'panier_produit')->withPivot('quantity');
     }
 
-    public function calculerTotal()
+    public function ajouterAuPanier()
     {
-        return $this->produits->sum(function ($produit) {
-            return $produit->prix * $produit->pivot->quantite;
-        });
+        // Implémentation
+    }
+
+    public function retirerAuPanier()
+    {
+        // Implémentation
+    }
+
+    public function viderPanier()
+    {
+        // Implémentation
     }
 }

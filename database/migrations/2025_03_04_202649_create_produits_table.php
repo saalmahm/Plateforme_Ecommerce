@@ -12,13 +12,9 @@ class CreateProduitsTable extends Migration
             $table->id();
             $table->string('nom');
             $table->text('description')->nullable();
-            $table->decimal('prix', 10, 2);
-            $table->integer('stock')->default(0);
-            $table->foreignId('category_id')
-                  ->constrained('categories')
-                  ->onDelete('cascade');
-            $table->string('image')->nullable();
-            $table->boolean('is_active')->default(true);
+            $table->decimal('prix', 8, 2);
+            $table->foreignId('category_id')->constrained()->onDelete('cascade');
+            $table->integer('stock');
             $table->timestamps();
         });
     }

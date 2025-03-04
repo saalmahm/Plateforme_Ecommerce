@@ -5,27 +5,30 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Paiement extends Model
+class Client extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'commande_id', 
-        'montant', 
-        'method'
+        'user_id'
     ];
 
-    public function commande()
+    public function user()
     {
-        return $this->belongsTo(Commande::class);
+        return $this->belongsTo(User::class);
     }
 
-    public function effectuerPaiement()
+    public function consulterListeProduits()
     {
         // Implémentation
     }
 
-    public function genererRecu()
+    public function consulterDetailProduit()
+    {
+        // Implémentation
+    }
+
+    public function signup()
     {
         // Implémentation
     }
