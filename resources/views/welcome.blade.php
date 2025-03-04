@@ -17,28 +17,30 @@
 </head>
 <body class="bg-orange-50">
     <!-- Navbar -->
-<!-- Voici la nouvelle version de la navbar avec des boutons améliorés -->
 <nav class="bg-white shadow-sm">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
             <div class="flex items-center">
-                <a href="#" class="flex items-center space-x-3">
+                <a href="{{ route('home') }}" class="flex items-center space-x-3">
                     <div class="p-2 bg-orange-500 rounded-lg">
                         <i class="fas fa-shopping-bag text-white"></i>
                     </div>
                     <span class="text-xl font-bold text-gray-900">ShopEase</span>
                 </a>
             </div>
-
+            
             <div class="flex items-center space-x-6">
-                <a href="#" class="relative group">
+                <!-- Lien de Connexion -->
+                <a href="{{ route('login') }}" class="relative group">
                     <span class="text-gray-700 font-medium hover:text-orange-500 transition-colors flex items-center space-x-2">
                         <i class="fas fa-user text-orange-500"></i>
                         <span>Connexion</span>
                     </span>
                     <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-orange-500 group-hover:w-full transition-all duration-300"></span>
                 </a>
-                <a href="#" class="relative inline-flex items-center justify-center px-6 py-2 overflow-hidden font-medium transition duration-300 ease-out border-2 border-orange-500 rounded-full group">
+
+                <!-- Lien d'Inscription -->
+                <a href="{{ route('register') }}" class="relative inline-flex items-center justify-center px-6 py-2 overflow-hidden font-medium transition duration-300 ease-out border-2 border-orange-500 rounded-full group">
                     <span class="absolute inset-0 flex items-center justify-center w-full h-full text-white duration-300 -translate-x-full bg-orange-500 group-hover:translate-x-0 ease">
                         <i class="fas fa-user-plus mr-2"></i> S'inscrire
                     </span>
@@ -51,7 +53,6 @@
         </div>
     </div>
 </nav>
-
     <!-- Hero Section -->
     <section class="hero-pattern py-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
