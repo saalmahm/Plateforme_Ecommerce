@@ -30,7 +30,7 @@
             <i class="fas fa-warehouse"></i>
             <span>Stocks</span>
         </a>
-        <a href="#" class="flex items-center space-x-3 px-4 py-3 text-gray-600 hover:bg-orange-50 hover:text-orange-600 rounded-lg transition-colors">
+        <a href="{{ route('admin.commandes')}}" class="flex items-center space-x-3 px-4 py-3 text-gray-600 hover:bg-orange-50 hover:text-orange-600 rounded-lg transition-colors">
             <i class="fas fa-shopping-cart"></i>
             <span>Commandes</span>
         </a>

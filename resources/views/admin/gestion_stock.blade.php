@@ -1,6 +1,6 @@
 @extends('admin.layout')
 
-@section('title', 'Tableau de Bord')
+@section('title', 'Gestion de stock')
 
 @section('content')
 
