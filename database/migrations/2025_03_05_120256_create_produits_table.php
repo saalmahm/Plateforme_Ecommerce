@@ -15,6 +15,7 @@ class CreateProduitsTable extends Migration
             $table->decimal('prix', 8, 2);
             $table->foreignId('category_id')->constrained()->onDelete('cascade');
             $table->integer('stock');
+            $table->string('image'); 
             $table->timestamps();
         });
     }
