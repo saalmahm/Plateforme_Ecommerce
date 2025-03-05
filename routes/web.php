@@ -39,4 +39,9 @@ Route::get('/admin/stock', function () {
 Route::get('/admin/commandes', function () {
     return view('admin.gestion_commandes');
 })->name('admin.commandes');
+
+Route::get('/admin/avis', function () {
+    return view('admin.gestion_avis');
+})->name('admin.avis');
+
 require __DIR__.'/auth.php';
