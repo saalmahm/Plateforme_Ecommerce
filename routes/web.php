@@ -57,6 +57,10 @@ Route::middleware(['auth', 'role:client'])->group(function () {
     Route::get('/client/contactez-nous', function () {
         return view('client.contact');
     })->name('client.contact');
+
+    Route::get('/client/mon-profile', function () {
+        return view('client.profile');
+    })->name('client.profile');
 });
 
 Route::middleware('auth')->group(function () {

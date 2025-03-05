@@ -1,6 +1,7 @@
 <nav class="bg-white shadow-sm sticky top-0 z-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
+            <!-- Logo et Nom -->
             <div class="flex items-center">
                 <a href="#" class="flex items-center space-x-3">
                     <div class="p-2 bg-orange-500 rounded-lg">
@@ -10,13 +11,16 @@
                 </a>
             </div>
 
+            <!-- Menu de Navigation -->
             <div class="hidden md:flex items-center space-x-8">
                 <a href="{{ route('client.produits')}}" class="text-orange-500 font-medium">Produits</a>
                 <a href="{{ route('client.categories')}}" class="text-gray-500 hover:text-orange-500">Catégories</a>
                 <a href="{{ route('client.contact')}}" class="text-gray-500 hover:text-orange-500">Contact</a>
             </div>
 
+            <!-- Actions Utilisateur -->
             <div class="flex items-center space-x-6">
+                <!-- Panier -->
                 <div class="relative">
                     <a href="{{ route('client.panier') }}" class="p-2 text-gray-500 hover:text-orange-500">
                         <i class="fas fa-shopping-cart text-xl"></i>
@@ -27,7 +31,9 @@
                 <!-- Profil et Déconnexion -->
                 @if(Auth::check())
                 <div class="flex items-center space-x-3">
-                    <img src="https://ui-avatars.com/api/?name={{ Auth::user()->nom }}&background=FB923C&color=fff" class="w-8 h-8 rounded-lg">
+                    <a href="{{ route('client.profile')}}">
+                        <img src="https://ui-avatars.com/api/?name={{ Auth::user()->nom }}&background=FB923C&color=fff" class="w-8 h-8 rounded-lg">
+                    </a>
                     <span class="text-sm font-medium text-gray-700">{{ Auth::user()->nom }}</span>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf

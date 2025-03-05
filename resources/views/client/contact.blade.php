@@ -1,6 +1,6 @@
 @extends('client.layout')
 
-@section('title', 'Mon panier - ShopEase')
+@section('title', 'Contactez-nous - ShopEase')
 
 @section('content')
 <!DOCTYPE html>
