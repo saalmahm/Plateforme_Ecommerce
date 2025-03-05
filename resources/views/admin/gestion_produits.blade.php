@@ -56,26 +56,61 @@
             </table>
         </div>
     </main>
+    <!-- Add/Edit Product Modal -->
+    <div id="productModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 hidden flex items-center justify-center">
+        <div class="bg-white rounded-xl shadow-xl max-w-3xl w-full mx-4 p-6">
+            <div class="pb-4 border-b">
+                <h3 class="text-xl font-semibold text-gray-900" id="modalTitle">Ajouter un produit</h3>
+            </div>
+            <form id="productForm">
+                <table class="min-w-full bg-white">
+                    <thead>
+                        <tr class="bg-gray-50">
+                            <th class="px-4 py-2 text-left text-sm font-medium text-gray-500">Produit</th>
+                            <th class="px-4 py-2 text-left text-sm font-medium text-gray-500">Catégorie</th>
+                            <th class="px-4 py-2 text-left text-sm font-medium text-gray-500">Prix</th>
+                            <th class="px-4 py-2 text-left text-sm font-medium text-gray-500">Stock</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="px-4 py-2"><input type="text" name="nom" class="border rounded-lg px-2 py-1 w-full"></td>
+                            <td class="px-4 py-2">
+                                <select name="category_id" class="border rounded-lg px-2 py-1 w-full">
+                                    <option value="">Sélectionner</option>
+                                    <option>Électronique</option>
+                                    <option>Mode</option>
+                                    <option>Maison</option>
+                                </select>
+                            </td>
+                            <td class="px-4 py-2"><input type="number" name="prix" step="0.01" class="border rounded-lg px-2 py-1 w-full"></td>
+                            <td class="px-4 py-2"><input type="number" name="stock" class="border rounded-lg px-2 py-1 w-full"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="mt-6 flex justify-end space-x-3">
+                    <button type="button" onclick="closeModal()" class="px-4 py-2 border rounded-lg text-gray-700 hover:bg-gray-50">Annuler</button>
+                    <button type="submit" class="px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600">Enregistrer</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
     <script>
         function openAddModal() {
-            Swal.fire({
-                title: 'Ajouter un produit',
-                input: 'text',
-                inputLabel: 'Nom du produit',
-                showCancelButton: true,
-                confirmButtonText: 'Enregistrer'
-            });
+            document.getElementById('modalTitle').textContent = 'Ajouter un produit';
+            document.getElementById('productModal').classList.remove('hidden');
         }
+
         function openEditModal(productId) {
-            Swal.fire({
-                title: 'Modifier le produit',
-                input: 'text',
-                inputLabel: 'Nom du produit',
-                showCancelButton: true,
-                confirmButtonText: 'Enregistrer'
-            });
+            document.getElementById('modalTitle').textContent = 'Modifier le produit';
+            document.getElementById('productModal').classList.remove('hidden');
         }
+
+        function closeModal() {
+            document.getElementById('productModal').classList.add('hidden');
+        }
+
         function confirmDelete(productId) {
             Swal.fire({
                 title: 'Êtes-vous sûr?',
@@ -90,8 +125,19 @@
                 if (result.isConfirmed) {
                     Swal.fire('Supprimé!', 'Le produit a été supprimé.', 'success');
                 }
-            });
+            })
         }
+
+        document.getElementById('productForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            closeModal();
+            Swal.fire({
+                icon: 'success',
+                title: 'Succès!',
+                text: 'Le produit a été enregistré.',
+                confirmButtonColor: '#f97316'
+            });
+        });
     </script>
 </body>
 </html>
