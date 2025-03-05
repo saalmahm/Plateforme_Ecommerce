@@ -13,7 +13,7 @@
             <div class="hidden md:flex items-center space-x-8">
                 <a href="{{ route('client.produits')}}" class="text-orange-500 font-medium">Produits</a>
                 <a href="{{ route('client.categories')}}" class="text-gray-500 hover:text-orange-500">Catégories</a>
-                <a href="#" class="text-gray-500 hover:text-orange-500">Contact</a>
+                <a href="{{ route('client.contact')}}" class="text-gray-500 hover:text-orange-500">Contact</a>
             </div>
 
             <div class="flex items-center space-x-6">
