@@ -28,4 +28,8 @@ Route::get('/admin/produits', function () {
     return view('admin.gestion_produits');
 })->name('admin.produits');
 
+Route::get('/admin/categories', function () {
+    return view('admin.gestion_categories');
+})->name('admin.categories');
+
 require __DIR__.'/auth.php';

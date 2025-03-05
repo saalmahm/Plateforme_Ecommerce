@@ -22,7 +22,7 @@
             <i class="fas fa-box"></i>
             <span>Produits</span>
         </a>
-        <a href="#" class="flex items-center space-x-3 px-4 py-3 text-gray-600 hover:bg-orange-50 hover:text-orange-600 rounded-lg transition-colors">
+        <a href="{{ route('admin.categories') }}" class="flex items-center space-x-3 px-4 py-3 text-gray-600 hover:bg-orange-50 hover:text-orange-600 rounded-lg transition-colors">
             <i class="fas fa-tags"></i>
             <span>Catégories</span>
         </a>
