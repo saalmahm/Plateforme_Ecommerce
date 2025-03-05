@@ -169,20 +169,15 @@
         </div>
 
     <script>
-        // Gestion des quantités
         function updateQuantity(productId, action) {
             // Logique de mise à jour des quantités
         }
 
-        // Suppression d'un produit
         function removeProduct(productId) {
             // Logique de suppression
         }
 
-        // Application du code promo
-        function applyPromoCode() {
-            // Logique du code promo
-        }
+
     </script>
 </body>
 </html>

@@ -49,6 +49,10 @@ Route::middleware(['auth', 'role:client'])->group(function () {
     Route::get('/client/mon_panier', function () {
         return view('client.panier');
     })->name('client.panier');
+
+    Route::get('/client/categories', function () {
+        return view('client.categories');
+    })->name('client.categories');
 });
 
 Route::middleware('auth')->group(function () {
