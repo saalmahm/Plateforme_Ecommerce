@@ -11,37 +11,46 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('/admin/dashboard', function () {
+        return view('admin.dashboard');
+    })->name('admin.dashboard');
+
+    Route::get('/admin/utilisateurs', function () {
+        return view('admin.gestion_users');
+    })->name('admin.utilisateurs');
+
+    Route::get('/admin/produits', function () {
+        return view('admin.gestion_produits');
+    })->name('admin.produits');
+
+    Route::get('/admin/categories', function () {
+        return view('admin.gestion_categories');
+    })->name('admin.categories');
+
+    Route::get('/admin/stock', function () {
+        return view('admin.gestion_stock');
+    })->name('admin.stock');
+
+    Route::get('/admin/commandes', function () {
+        return view('admin.gestion_commandes');
+    })->name('admin.commandes');
+
+    Route::get('/admin/avis', function () {
+        return view('admin.gestion_avis');
+    })->name('admin.avis');
+});
+
+Route::middleware(['auth', 'role:client'])->group(function () {
+    Route::get('/client/produits', function () {
+        return view('client.produits');
+    })->name('client.produits');
+});
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-Route::get('/admin/dashboard', function () {
-    return view('admin.dashboard');
-})->name('admin.dashboard');
-
-Route::get('/admin/utilisateurs', function () {
-    return view('admin.gestion_users');
-})->name('admin.utilisateurs');
-
-Route::get('/admin/produits', function () {
-    return view('admin.gestion_produits');
-})->name('admin.produits');
-
-Route::get('/admin/categories', function () {
-    return view('admin.gestion_categories');
-})->name('admin.categories');
-
-Route::get('/admin/stock', function () {
-    return view('admin.gestion_stock');
-})->name('admin.stock');
-
-Route::get('/admin/commandes', function () {
-    return view('admin.gestion_commandes');
-})->name('admin.commandes');
-
-Route::get('/admin/avis', function () {
-    return view('admin.gestion_avis');
-})->name('admin.avis');
 
 require __DIR__.'/auth.php';

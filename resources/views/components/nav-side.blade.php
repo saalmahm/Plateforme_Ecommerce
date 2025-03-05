@@ -9,15 +9,14 @@
     </div>
 
     <nav class="flex-1 p-4 space-y-2 overflow-y-auto scrollbar-hide">
-    <a href="{{ route('admin.dashboard') }}" class="flex items-center space-x-3 px-4 py-3 bg-orange-50 text-orange-600 rounded-lg font-medium">
-        <i class="fas fa-chart-pie"></i>
-        <span>Tableau de Bord</span>
-    </a>
-    <a href="{{ route('admin.utilisateurs') }}" class="flex items-center space-x-3 px-4 py-3 text-gray-600 hover:bg-orange-50 hover:text-orange-600 rounded-lg transition-colors">
-        <i class="fas fa-users"></i>
-        <span>Utilisateurs</span>
-    </a>
-
+        <a href="{{ route('admin.dashboard') }}" class="flex items-center space-x-3 px-4 py-3 bg-orange-50 text-orange-600 rounded-lg font-medium">
+            <i class="fas fa-chart-pie"></i>
+            <span>Tableau de Bord</span>
+        </a>
+        <a href="{{ route('admin.utilisateurs') }}" class="flex items-center space-x-3 px-4 py-3 text-gray-600 hover:bg-orange-50 hover:text-orange-600 rounded-lg transition-colors">
+            <i class="fas fa-users"></i>
+            <span>Utilisateurs</span>
+        </a>
         <a href="{{ route('admin.produits') }}" class="flex items-center space-x-3 px-4 py-3 text-gray-600 hover:bg-orange-50 hover:text-orange-600 rounded-lg transition-colors">
             <i class="fas fa-box"></i>
             <span>Produits</span>
@@ -42,14 +41,17 @@
 
     <div class="p-4 border-t border-gray-200">
         <div class="flex items-center space-x-3">
-            <img src="https://ui-avatars.com/api/?name=Salma+Hamdi&background=FB923C&color=fff" class="w-10 h-10 rounded-lg">
+            <img src="https://ui-avatars.com/api/?name={{ Auth::user()->nom }}&background=FB923C&color=fff" class="w-10 h-10 rounded-lg">
             <div>
-                <p class="text-sm font-medium text-gray-900">@saalmahm</p>
-                <p class="text-xs text-gray-500">Administrateur</p>
+                <p class="text-sm font-medium text-gray-900">{{ Auth::user()->nom }}</p>
+                <p class="text-xs text-gray-500">{{ Auth::user()->role }}</p>
             </div>
         </div>
-        <button class="mt-4 w-full px-4 py-2 text-sm text-red-600 font-medium hover:bg-red-50 rounded-lg transition-colors">
-            <i class="fas fa-sign-out-alt mr-2"></i>Déconnexion
-        </button>
+        <form method="POST" action="{{ route('logout') }}">
+            @csrf
+            <button type="submit" class="mt-4 w-full px-4 py-2 text-sm text-red-600 font-medium hover:bg-red-50 rounded-lg transition-colors">
+                <i class="fas fa-sign-out-alt mr-2"></i>Déconnexion
+            </button>
+        </form>
     </div>
 </aside>
