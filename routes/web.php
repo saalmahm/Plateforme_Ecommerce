@@ -24,5 +24,8 @@ Route::get('/admin/utilisateurs', function () {
     return view('admin.gestion_users');
 })->name('admin.utilisateurs');
 
+Route::get('/admin/produits', function () {
+    return view('admin.gestion_produits');
+})->name('admin.produits');
 
 require __DIR__.'/auth.php';
