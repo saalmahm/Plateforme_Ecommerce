@@ -32,4 +32,8 @@ Route::get('/admin/categories', function () {
     return view('admin.gestion_categories');
 })->name('admin.categories');
 
+Route::get('/admin/stock', function () {
+    return view('admin.gestion_stock');
+})->name('admin.stock');
+
 require __DIR__.'/auth.php';
