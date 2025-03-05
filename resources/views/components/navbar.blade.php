@@ -18,7 +18,7 @@
 
             <div class="flex items-center space-x-6">
                 <div class="relative">
-                    <a href="#" class="p-2 text-gray-500 hover:text-orange-500">
+                    <a href="{{route('client.panier')}}" class="p-2 text-gray-500 hover:text-orange-500">
                         <i class="fas fa-shopping-cart text-xl"></i>
                         <span class="absolute -top-1 -right-1 bg-orange-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">3</span>
                     </a>
