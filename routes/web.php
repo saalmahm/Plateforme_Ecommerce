@@ -12,7 +12,6 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/dashboard', function () {
         return view('admin.dashboard');
@@ -44,8 +43,6 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     })->name('admin.avis');
 });
 
-
-
 Route::middleware(['auth', 'role:client'])->group(function () {
     Route::get('/client/produits', function () {
         return view('client.produits');
@@ -55,9 +52,7 @@ Route::middleware(['auth', 'role:client'])->group(function () {
         return view('client.panier');
     })->name('client.panier');
 
-    Route::get('/client/categories', function () {
-        return view('client.categories');
-    })->name('client.categories');
+    Route::get('/client/categories', [CategoryController::class, 'showCategories'])->name('client.categories');
 
     Route::get('/client/contactez-nous', function () {
         return view('client.contact');

@@ -49,4 +49,10 @@ class CategoryController extends Controller
         $category->delete();
         return redirect()->route('admin.categories')->with('success', 'Catégorie supprimée avec succès!');
     }
+
+    public function showCategories()
+    {
+        $categories = Category::all();
+        return view('client.categories', compact('categories'));
+    }
 }

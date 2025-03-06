@@ -18,4 +18,10 @@ class Category extends Model
     {
         return $this->hasMany(Produit::class);
     }
+
+    public function getProduitsCountAttribute()
+    {
+        return $this->produits()->count();
+    }
+
 }
