@@ -116,5 +116,4 @@
     </script>
 </body>
 </html>
-@endsectionk
-f
+@endsection
