@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\CategoryController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -10,6 +11,7 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/dashboard', function () {
@@ -24,9 +26,10 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         return view('admin.gestion_produits');
     })->name('admin.produits');
 
-    Route::get('/admin/categories', function () {
-        return view('admin.gestion_categories');
-    })->name('admin.categories');
+    Route::get('/admin/categories', [CategoryController::class, 'index'])->name('admin.categories');
+    Route::post('/admin/categories', [CategoryController::class, 'store'])->name('admin.categories.store');
+    Route::put('/admin/categories/{category}', [CategoryController::class, 'update'])->name('admin.categories.update');
+    Route::delete('/admin/categories/{category}', [CategoryController::class, 'destroy'])->name('admin.categories.destroy');
 
     Route::get('/admin/stock', function () {
         return view('admin.gestion_stock');
@@ -40,6 +43,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         return view('admin.gestion_avis');
     })->name('admin.avis');
 });
+
+
 
 Route::middleware(['auth', 'role:client'])->group(function () {
     Route::get('/client/produits', function () {

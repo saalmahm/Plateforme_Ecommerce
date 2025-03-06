@@ -79,26 +79,28 @@
             <div class="p-6 border-b border-gray-200">
                 <h3 class="text-xl font-semibold text-gray-900" id="modalTitle">Ajouter une catégorie</h3>
             </div>
-            <form id="categoryForm" class="p-6">
-                <div class="space-y-6">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Nom de la catégorie</label>
-                        <input type="text" name="name" class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-orange-500 focus:border-orange-500">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Description</label>
-                        <textarea name="description" rows="3" class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-orange-500 focus:border-orange-500"></textarea>
-                    </div>
-                </div>
-                <div class="mt-6 flex justify-end space-x-3">
-                    <button type="button" onclick="closeModal()" class="px-4 py-2 border rounded-lg text-gray-700 hover:bg-gray-50">
-                        Annuler
-                    </button>
-                    <button type="submit" class="px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600">
-                        Enregistrer
-                    </button>
-                </div>
-            </form>
+            <form id="categoryForm" class="p-6" action="{{ route('admin.categories.store') }}" method="POST">
+    @csrf
+    <div class="space-y-6">
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Nom de la catégorie</label>
+            <input type="text" name="nom" class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-orange-500 focus:border-orange-500" required>
+        </div>
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Description</label>
+            <textarea name="description" rows="3" class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-orange-500 focus:border-orange-500"></textarea>
+        </div>
+    </div>
+    <div class="mt-6 flex justify-end space-x-3">
+        <button type="button" onclick="closeModal()" class="px-4 py-2 border rounded-lg text-gray-700 hover:bg-gray-50">
+            Annuler
+        </button>
+        <button type="submit" class="px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600">
+            Enregistrer
+        </button>
+    </div>
+</form>
+
         </div>
     </div>
 
