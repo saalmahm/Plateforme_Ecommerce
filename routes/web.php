@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ProduitController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -21,9 +22,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         return view('admin.gestion_users');
     })->name('admin.utilisateurs');
 
-    Route::get('/admin/produits', function () {
-        return view('admin.gestion_produits');
-    })->name('admin.produits');
+    Route::get('/admin/produits', [ProduitController::class, 'index'])->name('admin.produits');
+    Route::post('/admin/produits', [ProduitController::class, 'store'])->name('admin.produits.store');
 
     Route::get('/admin/categories', [CategoryController::class, 'index'])->name('admin.categories');
     Route::post('/admin/categories', [CategoryController::class, 'store'])->name('admin.categories.store');
