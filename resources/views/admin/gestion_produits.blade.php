@@ -34,120 +34,121 @@
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Catégorie</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Prix</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Stock</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Image</th>
                         <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Actions</th>
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
+                    @foreach ($produits as $produit)
                     <tr class="hover:bg-gray-50">
-                        <td class="px-6 py-4 whitespace-nowrap">iPhone 15 Pro</td>
-                        <td class="px-6 py-4 whitespace-nowrap">Électronique</td>
-                        <td class="px-6 py-4 whitespace-nowrap">1299.99 €</td>
-                        <td class="px-6 py-4 whitespace-nowrap">150 unités</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ $produit->nom }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ $produit->category->nom }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ $produit->prix }} €</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ $produit->stock }} unités</td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                        <img src="{{ asset('storage/' . $produit->image) }}" alt="{{ $produit->nom }}" class="w-16 h-16 object-cover rounded-lg">                        </td>
                         <td class="px-6 py-4 whitespace-nowrap text-right">
-                            <button onclick="openEditModal(1)" class="text-blue-600 hover:text-blue-900">
+                            <button onclick="openEditModal({{ $produit->id }})" class="text-blue-600 hover:text-blue-900">
                                 <i class="fas fa-edit"></i>
                             </button>
-                            <button onclick="confirmDelete(1)" class="text-red-600 hover:text-red-900">
+                            <button onclick="confirmDelete({{ $produit->id }})" class="text-red-600 hover:text-red-900">
                                 <i class="fas fa-trash"></i>
                             </button>
                         </td>
                     </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
     </main>
     <!-- Add/Edit Product Modal -->
     <div id="productModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 hidden flex items-center justify-center">
-    <div class="bg-white rounded-xl shadow-xl max-w-3xl w-full mx-4 p-6">
-        <div class="pb-4 border-b">
-            <h3 class="text-xl font-semibold text-gray-900" id="modalTitle">Ajouter un produit</h3>
+        <div class="bg-white rounded-xl shadow-xl max-w-3xl w-full mx-4 p-6">
+            <div class="pb-4 border-b">
+                <h3 class="text-xl font-semibold text-gray-900" id="modalTitle">Ajouter un produit</h3>
+            </div>
+            <form id="productForm" action="{{ route('admin.produits.store') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <table class="min-w-full bg-white">
+                    <thead>
+                        <tr class="bg-gray-50">
+                            <th class="px-4 py-2 text-left text-sm font-medium text-gray-500">Produit</th>
+                            <th class="px-4 py-2 text-left text-sm font-medium text-gray-500">Catégorie</th>
+                            <th class="px-4 py-2 text-left text-sm font-medium text-gray-500">Prix</th>
+                            <th class="px-4 py-2 text-left text-sm font-medium text-gray-500">Stock</th>
+                            <th class="px-4 py-2 text-left text-sm font-medium text-gray-500">Image</th>
+                            <th class="px-4 py-2 text-left text-sm font-medium text-gray-500">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="px-4 py-2"><input type="text" name="nom" class="border rounded-lg px-2 py-1 w-full" required></td>
+                            <td class="px-4 py-2">
+                                <select name="category_id" class="border rounded-lg px-2 py-1 w-full" required>
+                                    <option value="">Sélectionner</option>
+                                    @foreach($categories as $category)
+                                        <option value="{{ $category->id }}">{{ $category->nom }}</option>
+                                    @endforeach
+                                </select>
+                            </td>
+                            <td class="px-4 py-2"><input type="number" name="prix" step="0.01" class="border rounded-lg px-2 py-1 w-full" required></td>
+                            <td class="px-4 py-2"><input type="number" name="stock" class="border rounded-lg px-2 py-1 w-full" required></td>
+                            <td class="px-4 py-2"><input type="file" name="image" class="border rounded-lg px-2 py-1 w-full" required></td>
+                            <td class="px-4 py-2"><textarea name="description" class="border rounded-lg px-2 py-1 w-full"></textarea></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="mt-6 flex justify-end space-x-3">
+                    <button type="button" onclick="closeModal()" class="px-4 py-2 border rounded-lg text-gray-700 hover:bg-gray-50">Annuler</button>
+                    <button type="submit" class="px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600">Enregistrer</button>
+                </div>
+            </form>
         </div>
-        <form id="productForm" action="{{ route('admin.produits.store') }}" method="POST" enctype="multipart/form-data">
-    @csrf
-    <table class="min-w-full bg-white">
-        <thead>
-            <tr class="bg-gray-50">
-                <th class="px-4 py-2 text-left text-sm font-medium text-gray-500">Produit</th>
-                <th class="px-4 py-2 text-left text-sm font-medium text-gray-500">Catégorie</th>
-                <th class="px-4 py-2 text-left text-sm font-medium text-gray-500">Prix</th>
-                <th class="px-4 py-2 text-left text-sm font-medium text-gray-500">Stock</th>
-                <th class="px-4 py-2 text-left text-sm font-medium text-gray-500">Image</th>
-                <th class="px-4 py-2 text-left text-sm font-medium text-gray-500">Description</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td class="px-4 py-2"><input type="text" name="nom" class="border rounded-lg px-2 py-1 w-full" required></td>
-                <td class="px-4 py-2">
-                    <select name="category_id" class="border rounded-lg px-2 py-1 w-full" required>
-                        <option value="">Sélectionner</option>
-                        @foreach($categories as $category)
-                            <option value="{{ $category->id }}">{{ $category->nom }}</option>
-                        @endforeach
-                    </select>
-                </td>
-                <td class="px-4 py-2"><input type="number" name="prix" step="0.01" class="border rounded-lg px-2 py-1 w-full" required></td>
-                <td class="px-4 py-2"><input type="number" name="stock" class="border rounded-lg px-2 py-1 w-full" required></td>
-                <td class="px-4 py-2"><input type="file" name="image" class="border rounded-lg px-2 py-1 w-full" required></td>
-                <td class="px-4 py-2"><textarea name="description" class="border rounded-lg px-2 py-1 w-full"></textarea></td>
-            </tr>
-        </tbody>
-    </table>
-    <div class="mt-6 flex justify-end space-x-3">
-        <button type="button" onclick="closeModal()" class="px-4 py-2 border rounded-lg text-gray-700 hover:bg-gray-50">Annuler</button>
-        <button type="submit" class="px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600">Enregistrer</button>
     </div>
-</form>
 
+    <script>
+                function openAddModal() {
+            document.getElementById('modalTitle').textContent = 'Ajouter un produit';
+            document.getElementById('productModal').classList.remove('hidden');
+        }
 
+        function openEditModal(productId) {
+            document.getElementById('modalTitle').textContent = 'Modifier le produit';
+            document.getElementById('productModal').classList.remove('hidden');
+        }
 
-    </div>
-</div>
+        function closeModal() {
+            document.getElementById('productModal').classList.add('hidden');
+        }
 
-<script>
-    function openAddModal() {
-        document.getElementById('modalTitle').textContent = 'Ajouter un produit';
-        document.getElementById('productModal').classList.remove('hidden');
-    }
+        function confirmDelete(productId) {
+            Swal.fire({
+                title: 'Êtes-vous sûr?',
+                text: "Cette action est irréversible!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#f97316',
+                cancelButtonColor: '#6b7280',
+                confirmButtonText: 'Oui, supprimer',
+                cancelButtonText: 'Annuler'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire('Supprimé!', 'Le produit a été supprimé.', 'success');
+                }
+            })
+        }
 
-    function openEditModal(productId) {
-        document.getElementById('modalTitle').textContent = 'Modifier le produit';
-        document.getElementById('productModal').classList.remove('hidden');
-    }
-
-    function closeModal() {
-        document.getElementById('productModal').classList.add('hidden');
-    }
-
-    function confirmDelete(productId) {
-        Swal.fire({
-            title: 'Êtes-vous sûr?',
-            text: "Cette action est irréversible!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#f97316',
-            cancelButtonColor: '#6b7280',
-            confirmButtonText: 'Oui, supprimer',
-            cancelButtonText: 'Annuler'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                Swal.fire('Supprimé!', 'Le produit a été supprimé.', 'success');
-            }
-        })
-    }
-
-    document.getElementById('productForm').addEventListener('submit', function(e) {
-        // e.preventDefault(); // Retirez ou commentez cette ligne pour permettre la soumission du formulaire
-        closeModal();
-        Swal.fire({
-            icon: 'success',
-            title: 'Succès!',
-            text: 'Le produit a été enregistré.',
-            confirmButtonColor: '#f97316'
+        document.getElementById('productForm').addEventListener('submit', function(e) {
+            // e.preventDefault(); // Retirez ou commentez cette ligne pour permettre la soumission du formulaire
+            closeModal();
+            Swal.fire({
+                icon: 'success',
+                title: 'Succès!',
+                text: 'Le produit a été enregistré.',
+                confirmButtonColor: '#f97316'
+            });
         });
-    });
-</script>
-
+    </script>
 </body>
 </html>
 @endsection

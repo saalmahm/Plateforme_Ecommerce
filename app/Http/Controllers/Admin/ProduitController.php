@@ -27,21 +27,27 @@ class ProduitController extends Controller
             'stock' => 'required|integer',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
-
+        
+        $imageName = null;
+        
         if ($request->hasFile('image')) {
-            $imageName = time().'.'.$request->image->extension();  
-            $request->image->storeAs('public/images', $imageName);
+            $imageName = time().'.'.$request->image->extension();
+            $path = $request->file('image')->store('images', 'public');
+            \Log::info('Image stored: ' . $path);
+            \Log::info('Image exists: ' . (Storage::exists($path) ? 'Yes' : 'No'));
         }
-
-        Produit::create([
+        
+        $produit = Produit::create([
             'nom' => $request->nom,
             'description' => $request->description,
             'prix' => $request->prix,
             'category_id' => $request->category_id,
             'stock' => $request->stock,
-            'image' => $imageName 
+            'image' => $path
         ]);
-
+        
+        \Log::info('Product created with image: ' . $produit->image);
+        
         return redirect()->route('admin.produits')->with('success', 'Produit ajouté avec succès!');
     }
 }
