@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProduitController;
+use App\Http\Controllers\Admin\UserController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -18,9 +19,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         return view('admin.dashboard');
     })->name('admin.dashboard');
 
-    Route::get('/admin/utilisateurs', function () {
-        return view('admin.gestion_users');
-    })->name('admin.utilisateurs');
+    // ✅ Correction ici : on appelle UserController@index pour éviter l'erreur "Undefined variable $users"
+    Route::get('/admin/utilisateurs', [UserController::class, 'index'])->name('admin.utilisateurs');
 
     Route::get('/admin/produits', [ProduitController::class, 'index'])->name('admin.produits');
     Route::post('/admin/produits', [ProduitController::class, 'store'])->name('admin.produits.store');
@@ -45,6 +45,10 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/produits/edit/{id}', [ProduitController::class, 'edit'])->name('admin.produits.edit');
     Route::put('/admin/produits/update/{id}', [ProduitController::class, 'update'])->name('admin.produits.update');
     Route::delete('/admin/produits/delete/{id}', [ProduitController::class, 'destroy'])->name('admin.produits.destroy');
+
+    Route::get('/admin/users', [UserController::class, 'index'])->name('gestion_users');
+    Route::put('/admin/users/{user}', [UserController::class, 'updateRole'])->name('gestion_users.updateRole');
+    Route::delete('/admin/users/{user}', [UserController::class, 'destroy'])->name('gestion_users.destroy');
 });
 
 Route::middleware(['auth', 'role:client'])->group(function () {

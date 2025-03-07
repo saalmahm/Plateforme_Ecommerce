@@ -63,12 +63,12 @@
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-right">
                             <div class="flex justify-end space-x-3">
-                                <button onclick="openEditModal({{ $category->id }}, '{{ $category->nom }}', '{{ $category->description }}')" class="text-blue-600 hover:text-blue-900">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                                <button onclick="confirmDelete({{ $category->id }})" class="text-red-600 hover:text-red-900">
-                                    <i class="fas fa-trash"></i>
-                                </button>
+                            <button onclick="openEditModal({{ $category->id }}, '{{ $category->nom }}', '{{ $category->description }}')" class="text-blue-600 hover:text-blue-900">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button onclick="confirmDelete({{ $category->id }})" class="text-red-600 hover:text-red-900">
+                                <i class="fas fa-trash"></i>
+</button>
                             </div>
                         </td>
                     </tr>
@@ -136,7 +136,7 @@
 
         function openEditModal(id, nom, description) {
             document.getElementById('modalTitle').textContent = 'Modifier la catégorie';
-            document.getElementById('categoryForm').action = `/admin/categories/update/${id}`;
+            document.getElementById('categoryForm').action = `/admin/categories/${id}`; // Corrected URL
             document.getElementById('categoryName').value = nom;
             document.getElementById('categoryDescription').value = description.replace(/&quot;/g, '"');
             
@@ -147,6 +147,7 @@
             document.getElementById('categoryModal').classList.remove('hidden');
             document.getElementById('categoryModal').classList.add('flex');
         }
+
 
         function closeModal() {
             document.getElementById('categoryModal').classList.add('hidden');
@@ -168,7 +169,7 @@
                     // Créer un formulaire pour envoyer la requête DELETE
                     const form = document.createElement('form');
                     form.method = 'POST';
-                    form.action = `/admin/categories/delete/${categoryId}`;
+                    form.action = `/admin/categories/${categoryId}`; // Corrected URL
                     
                     // Ajouter le token CSRF
                     const csrfToken = document.createElement('input');
@@ -190,6 +191,7 @@
                 }
             });
         }
+
     </script>
 </body>
 </html>
