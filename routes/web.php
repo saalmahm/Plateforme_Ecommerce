@@ -44,6 +44,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
     Route::get('/admin/produits/edit/{id}', [ProduitController::class, 'edit'])->name('admin.produits.edit');
     Route::put('/admin/produits/update/{id}', [ProduitController::class, 'update'])->name('admin.produits.update');
+    Route::delete('/admin/produits/delete/{id}', [ProduitController::class, 'destroy'])->name('admin.produits.destroy');
 });
 
 Route::middleware(['auth', 'role:client'])->group(function () {

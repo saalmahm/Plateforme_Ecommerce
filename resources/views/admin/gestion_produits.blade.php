@@ -9,6 +9,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>ShopEase Admin - Gestion des Produits</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -145,24 +146,41 @@
         }
 
         function confirmDelete(productId) {
-            Swal.fire({
-                title: 'Êtes-vous sûr?',
-                text: "Cette action est irréversible!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#f97316',
-                cancelButtonColor: '#6b7280',
-                confirmButtonText: 'Oui, supprimer',
-                cancelButtonText: 'Annuler'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    Swal.fire('Supprimé!', 'Le produit a été supprimé.', 'success');
-                }
-            })
+    Swal.fire({
+        title: 'Êtes-vous sûr?',
+        text: "Cette action est irréversible!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#f97316',
+        cancelButtonColor: '#6b7280',
+        confirmButtonText: 'Oui, supprimer',
+        cancelButtonText: 'Annuler'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = `/admin/produits/delete/${productId}`;
+            
+            // Ajouter le token CSRF
+            const csrfToken = document.createElement('input');
+            csrfToken.type = 'hidden';
+            csrfToken.name = '_token';
+            csrfToken.value = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            form.appendChild(csrfToken);
+            
+            const methodField = document.createElement('input');
+            methodField.type = 'hidden';
+            methodField.name = '_method';
+            methodField.value = 'DELETE';
+            form.appendChild(methodField);
+            
+            document.body.appendChild(form);
+            form.submit();
         }
+    });
+}
 
         document.getElementById('productForm').addEventListener('submit', function(e) {
-            // e.preventDefault(); // Retirez ou commentez cette ligne pour permettre la soumission du formulaire
             closeModal();
             Swal.fire({
                 icon: 'success',

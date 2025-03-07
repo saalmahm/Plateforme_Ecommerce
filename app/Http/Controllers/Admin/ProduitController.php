@@ -91,4 +91,18 @@ class ProduitController extends Controller
         
         return redirect()->route('admin.produits')->with('success', 'Produit modifié avec succès!');
     }
+
+    public function destroy($id)
+{
+    $produit = Produit::findOrFail($id);
+    
+    // Supprimer l'image associée si elle existe
+    if ($produit->image && Storage::exists('public/' . $produit->image)) {
+        Storage::delete('public/' . $produit->image);
+    }
+    
+    $produit->delete();
+    
+    return redirect()->route('admin.produits')->with('success', 'Produit supprimé avec succès!');
+}
 }
