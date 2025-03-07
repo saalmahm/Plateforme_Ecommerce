@@ -33,6 +33,7 @@ class ProduitController extends Controller
         if ($request->hasFile('image')) {
             $imageName = time().'.'.$request->image->extension();
             $path = $request->file('image')->store('images', 'public');
+
             \Log::info('Image stored: ' . $path);
             \Log::info('Image exists: ' . (Storage::exists($path) ? 'Yes' : 'No'));
         }
@@ -49,5 +50,45 @@ class ProduitController extends Controller
         \Log::info('Product created with image: ' . $produit->image);
         
         return redirect()->route('admin.produits')->with('success', 'Produit ajouté avec succès!');
+    }
+    public function edit($id)
+    {
+        $produit = Produit::findOrFail($id);
+        return response()->json($produit);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'nom' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'prix' => 'required|numeric',
+            'category_id' => 'required|exists:categories,id',
+            'stock' => 'required|integer',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+        ]);
+        
+        $produit = Produit::findOrFail($id);
+        
+        $produit->nom = $request->nom;
+        $produit->description = $request->description;
+        $produit->prix = $request->prix;
+        $produit->category_id = $request->category_id;
+        $produit->stock = $request->stock;
+        
+        if ($request->hasFile('image')) {
+            // Supprimer l'ancienne image si elle existe
+            if ($produit->image && Storage::exists('public/' . $produit->image)) {
+                Storage::delete('public/' . $produit->image);
+            }
+            
+            // Stocker la nouvelle image
+            $path = $request->file('image')->store('images', 'public');
+            $produit->image = $path;
+        }
+        
+        $produit->save();
+        
+        return redirect()->route('admin.produits')->with('success', 'Produit modifié avec succès!');
     }
 }

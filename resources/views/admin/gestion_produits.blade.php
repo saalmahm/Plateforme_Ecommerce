@@ -68,7 +68,7 @@
                 <h3 class="text-xl font-semibold text-gray-900" id="modalTitle">Ajouter un produit</h3>
             </div>
             <form id="productForm" action="{{ route('admin.produits.store') }}" method="POST" enctype="multipart/form-data">
-                @csrf
+            @csrf
                 <table class="min-w-full bg-white">
                     <thead>
                         <tr class="bg-gray-50">
@@ -113,9 +113,32 @@
         }
 
         function openEditModal(productId) {
-            document.getElementById('modalTitle').textContent = 'Modifier le produit';
-            document.getElementById('productModal').classList.remove('hidden');
-        }
+    document.getElementById('modalTitle').textContent = 'Modifier le produit';
+    
+    let form = document.getElementById('productForm');
+    form.action = `/admin/produits/update/${productId}`;
+    
+    let methodField = document.createElement('input');
+    methodField.type = 'hidden';
+    methodField.name = '_method';
+    methodField.value = 'PUT';
+    form.appendChild(methodField);
+    
+    fetch(`/admin/produits/edit/${productId}`)
+        .then(response => response.json())
+        .then(data => {
+            document.querySelector('input[name="nom"]').value = data.nom;
+            document.querySelector('select[name="category_id"]').value = data.category_id;
+            document.querySelector('input[name="prix"]').value = data.prix;
+            document.querySelector('input[name="stock"]').value = data.stock;
+            document.querySelector('textarea[name="description"]').value = data.description;
+            
+
+            document.querySelector('input[name="image"]').removeAttribute('required');
+        });
+    
+    document.getElementById('productModal').classList.remove('hidden');
+}
 
         function closeModal() {
             document.getElementById('productModal').classList.add('hidden');

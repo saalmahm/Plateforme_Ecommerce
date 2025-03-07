@@ -41,6 +41,9 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/avis', function () {
         return view('admin.gestion_avis');
     })->name('admin.avis');
+
+    Route::get('/admin/produits/edit/{id}', [ProduitController::class, 'edit'])->name('admin.produits.edit');
+    Route::put('/admin/produits/update/{id}', [ProduitController::class, 'update'])->name('admin.produits.update');
 });
 
 Route::middleware(['auth', 'role:client'])->group(function () {
