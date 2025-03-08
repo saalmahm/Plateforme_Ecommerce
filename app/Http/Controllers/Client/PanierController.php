@@ -33,5 +33,29 @@ class PanierController extends Controller
 
         return view('client.panier', compact('panier'));
     }
-}
 
+    public function removeProduit($produitId)
+    {
+        $user = Auth::user();
+        $panier = Panier::where('user_id', $user->id)->first();
+
+        if ($panier) {
+            $panier->produits()->detach($produitId);
+        }
+
+        return redirect()->route('client.panier')->with('success', 'Produit supprimé du panier avec succès!');
+    }
+
+    public function updateQuantity(Request $request, $produitId)
+    {
+        $user = Auth::user();
+        $panier = Panier::where('user_id', $user->id)->first();
+        $quantity = $request->input('quantity');
+
+        if ($panier) {
+            $panier->produits()->updateExistingPivot($produitId, ['quantity' => $quantity]);
+        }
+
+        return redirect()->route('client.panier')->with('success', 'Quantité mise à jour avec succès!');
+    }
+}

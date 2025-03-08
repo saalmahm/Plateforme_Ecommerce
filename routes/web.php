@@ -59,6 +59,8 @@ Route::middleware(['auth', 'role:client'])->group(function () {
 
     Route::post('/client/panier/ajouter/{produitId}', [PanierController::class, 'ajouterAuPanier'])->name('client.panier.ajouter');
     Route::get('/client/mon_panier', [PanierController::class, 'afficherPanier'])->name('client.panier');
+    Route::delete('/client/panier/remove/{produitId}', [PanierController::class, 'removeProduit'])->name('client.panier.remove');
+    Route::patch('/client/panier/update/{produitId}', [PanierController::class, 'updateQuantity'])->name('client.panier.update');
 
     Route::get('/client/categories', [CategoryController::class, 'showCategories'])->name('client.categories');
 
