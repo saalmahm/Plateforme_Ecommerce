@@ -33,6 +33,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
     // Utilisation du StockController pour la gestion des stocks
     Route::get('/admin/stock', [StockController::class, 'index'])->name('admin.stock');
+    Route::post('/admin/stock/reapprovisionner/{id}', [StockController::class, 'reapprovisionner'])->name('admin.stock.reapprovisionner');
 
     Route::get('/admin/commandes', function () {
         return view('admin.gestion_commandes');

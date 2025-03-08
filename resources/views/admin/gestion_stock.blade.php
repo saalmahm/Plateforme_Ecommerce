@@ -66,7 +66,10 @@
                         <td class="px-6 py-4 font-bold {{ $data->stock == 0 ? 'text-red-600' : ($data->stock < 10 ? 'text-yellow-600' : 'text-green-600') }}">{{ $data->stock }} unités</td>
                         <td class="px-6 py-4 text-gray-500">{{ $data->updated_at }}</td>
                         <td class="px-6 py-4 text-right">
-                            <button class="px-3 py-1 bg-orange-500 text-white rounded-lg hover:bg-orange-600 text-sm">Réapprovisionner</button>
+                            <form action="{{ route('admin.stock.reapprovisionner', $data->id) }}" method="POST">
+                                @csrf
+                                <button type="submit" class="px-3 py-1 bg-orange-500 text-white rounded-lg hover:bg-orange-600 text-sm">Réapprovisionner</button>
+                            </form>
                         </td>
                     </tr>
                 @endforeach
