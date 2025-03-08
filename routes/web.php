@@ -20,9 +20,8 @@ Route::get('/dashboard', function () {
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/dashboard', function () {
         return view('admin.dashboard');
-    })->name('admin.dashboard');  // Ajout de cette ligne
+    })->name('admin.dashboard');
 
-    // ✅ Correction ici : on appelle UserController@index pour éviter l'erreur "Undefined variable $users"
     Route::get('/admin/utilisateurs', [UserController::class, 'index'])->name('admin.utilisateurs');
 
     Route::get('/admin/produits', [ProduitController::class, 'index'])->name('admin.produits');
@@ -33,7 +32,6 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::put('/admin/categories/{category}', [CategoryController::class, 'update'])->name('admin.categories.update');
     Route::delete('/admin/categories/{category}', [CategoryController::class, 'destroy'])->name('admin.categories.destroy');
 
-    // Utilisation du StockController pour la gestion des stocks
     Route::get('/admin/stock', [StockController::class, 'index'])->name('admin.stock');
     Route::post('/admin/stock/reapprovisionner/{id}', [StockController::class, 'reapprovisionner'])->name('admin.stock.reapprovisionner');
 

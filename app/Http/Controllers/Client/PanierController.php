@@ -16,9 +16,7 @@ class PanierController extends Controller
         $user = Auth::user();
 
         // Vérifier si l'utilisateur a déjà un panier
-        $panier = Panier::firstOrCreate(
-            ['user_id' => $user->id]
-        );
+        $panier = Panier::firstOrCreate(['user_id' => $user->id]);
 
         // Ajouter le produit au panier avec une quantité par défaut de 1
         $panier->produits()->syncWithoutDetaching([$produit->id => ['quantity' => 1]]);
@@ -50,9 +48,16 @@ class PanierController extends Controller
     {
         $user = Auth::user();
         $panier = Panier::where('user_id', $user->id)->first();
-        $quantity = $request->input('quantity');
 
         if ($panier) {
+            $quantity = $panier->produits()->where('produit_id', $produitId)->first()->pivot->quantity;
+
+            if ($request->action === 'increase') {
+                $quantity++;
+            } elseif ($request->action === 'decrease' && $quantity > 1) {
+                $quantity--;
+            }
+
             $panier->produits()->updateExistingPivot($produitId, ['quantity' => $quantity]);
         }
 

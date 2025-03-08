@@ -29,13 +29,23 @@
                             </div>
                             <div class="mt-4 flex items-center justify-between">
                                 <div class="flex items-center border rounded-lg">
-                                    <button class="px-3 py-1 text-gray-600 hover:text-orange-500" onclick="updateQuantity({{ $produit->id }}, 'decrease')">
-                                        <i class="fas fa-minus"></i>
-                                    </button>
+                                    <form action="{{ route('client.panier.update', $produit->id) }}" method="POST">
+                                        @csrf
+                                        @method('PATCH')
+                                        <input type="hidden" name="action" value="decrease">
+                                        <button type="submit" class="px-3 py-1 text-gray-600 hover:text-orange-500">
+                                            <i class="fas fa-minus"></i>
+                                        </button>
+                                    </form>
                                     <span class="px-4 py-1 border-x">{{ $produit->pivot->quantity }}</span>
-                                    <button class="px-3 py-1 text-gray-600 hover:text-orange-500" onclick="updateQuantity({{ $produit->id }}, 'increase')">
-                                        <i class="fas fa-plus"></i>
-                                    </button>
+                                    <form action="{{ route('client.panier.update', $produit->id) }}" method="POST">
+                                        @csrf
+                                        @method('PATCH')
+                                        <input type="hidden" name="action" value="increase">
+                                        <button type="submit" class="px-3 py-1 text-gray-600 hover:text-orange-500">
+                                            <i class="fas fa-plus"></i>
+                                        </button>
+                                    </form>
                                 </div>
                                 <span class="text-lg font-bold text-gray-900">{{ number_format($produit->prix, 2, ',', ' ') }} €</span>
                             </div>
@@ -98,15 +108,5 @@
             </div>
         </div>
     </div>
-
-    <script>
-        function updateQuantity(productId, action) {
-            // Logique de mise à jour des quantités
-        }
-
-        function removeProduct(productId) {
-            // Logique de suppression
-        }
-    </script>
 </div>
 @endsection
