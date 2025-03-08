@@ -24,8 +24,7 @@ class UserController extends Controller
             'role' => $request->role,
         ]);
 
-        return redirect()->route('admin.gestion_users')->with('success', 'Role updated successfully!');
-    }
+        return redirect()->route('admin.gestion_users')->with('success', 'Role updated successfully!');    }
 
     public function destroy(User $user)
     {

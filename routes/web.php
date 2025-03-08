@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProduitController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\StockController; // Ajout du StockController
 
 Route::get('/', function () {
     return view('welcome');
@@ -30,9 +31,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::put('/admin/categories/{category}', [CategoryController::class, 'update'])->name('admin.categories.update');
     Route::delete('/admin/categories/{category}', [CategoryController::class, 'destroy'])->name('admin.categories.destroy');
 
-    Route::get('/admin/stock', function () {
-        return view('admin.gestion_stock');
-    })->name('admin.stock');
+    // Utilisation du StockController pour la gestion des stocks
+    Route::get('/admin/stock', [StockController::class, 'index'])->name('admin.stock');
 
     Route::get('/admin/commandes', function () {
         return view('admin.gestion_commandes');

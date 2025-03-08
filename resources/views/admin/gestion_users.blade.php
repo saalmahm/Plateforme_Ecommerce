@@ -45,8 +45,8 @@
                     </td>
                     <td class="px-6 py-4 text-sm text-gray-500">{{ $user->email }}</td>
                     <td class="px-6 py-4">
-                        <form action="{{ route('gestion_users.updateRole', $user) }}" method="POST">
-                            @csrf
+                    <form action="{{ route('gestion_users.updateRole', $user) }}" method="POST">
+                    @csrf
                             @method('PUT')
                             <select name="role" class="text-sm border rounded-lg px-2 py-1 focus:ring-2 focus:ring-orange-500">
                                 <option value="admin" {{ $user->role == 'admin' ? 'selected' : '' }}>Admin</option>
