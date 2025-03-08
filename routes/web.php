@@ -16,9 +16,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
-    Route::get('/admin/dashboard', function () {
-        return view('admin.dashboard');
-    })->name('admin.dashboard');
+
 
     // ✅ Correction ici : on appelle UserController@index pour éviter l'erreur "Undefined variable $users"
     Route::get('/admin/utilisateurs', [UserController::class, 'index'])->name('admin.utilisateurs');
