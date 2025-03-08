@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProduitController;
 use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Admin\StockController; // Ajout du StockController
+use App\Http\Controllers\Admin\StockController; 
 
 Route::get('/', function () {
     return view('welcome');
@@ -53,9 +53,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 });
 
 Route::middleware(['auth', 'role:client'])->group(function () {
-    Route::get('/client/produits', function () {
-        return view('client.produits');
-    })->name('client.produits');
+    Route::get('/client/produits', [App\Http\Controllers\Client\ProduitController::class, 'index'])->name('client.produits');
 
     Route::get('/client/mon_panier', function () {
         return view('client.panier');
@@ -71,6 +69,7 @@ Route::middleware(['auth', 'role:client'])->group(function () {
         return view('client.profile');
     })->name('client.profile');
 });
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
