@@ -20,9 +20,12 @@
                         <span class="text-lg font-bold text-gray-900">{{ number_format($produit->prix, 2, ',', ' ') }} €</span>
                     </div>
                     <div class="mt-4 flex flex-col gap-2">
-                        <button class="w-full px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition">
-                            Ajouter au panier
-                        </button>
+                        <form action="{{ route('client.panier.ajouter', $produit->id) }}" method="POST">
+                            @csrf
+                            <button type="submit" class="w-full px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition">
+                                Ajouter au panier
+                            </button>
+                        </form>
                         <button class="w-full px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">
                             Ajouter un commentaire
                         </button>

@@ -23,18 +23,4 @@ class Panier extends Model
         return $this->belongsToMany(Produit::class, 'panier_produit')->withPivot('quantity');
     }
 
-    public function ajouterAuPanier()
-    {
-        // Implémentation
-    }
-
-    public function retirerAuPanier()
-    {
-        // Implémentation
-    }
-
-    public function viderPanier()
-    {
-        // Implémentation
-    }
 }
