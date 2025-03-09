@@ -11,6 +11,17 @@ use Illuminate\View\View;
 
 class ProfileController extends Controller
 {
+    public function show()
+    {
+        // Get the authenticated user
+        $user = Auth::user();
+
+        // Fetch the user's orders with their associated products
+        $commandes = $user->commandes()->with('produits')->get();
+
+        // Pass the data to the view
+        return view('client.profile', compact('user', 'commandes'));
+    }
     /**
      * Display the user's profile form.
      */

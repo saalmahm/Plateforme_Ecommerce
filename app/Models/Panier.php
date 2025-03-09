@@ -2,25 +2,23 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Panier extends Model
 {
-    use HasFactory;
+    protected $fillable = ['user_id'];
 
-    protected $fillable = [
-        'user_id'
-    ];
-
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    public function produits()
+    public function produits(): BelongsToMany
     {
-        return $this->belongsToMany(Produit::class, 'panier_produit')->withPivot('quantity');
+        return $this->belongsToMany(Produit::class)
+            ->withPivot('quantity')
+            ->withTimestamps();
     }
-
 }

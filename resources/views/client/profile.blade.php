@@ -61,52 +61,47 @@
 
             <div class="mt-8">
                 <h2 class="text-lg font-semibold text-gray-900 mb-6">Historique des commandes</h2>
-                
-                <div class="border rounded-lg p-4 mb-4">
-                    <div class="flex items-center justify-between mb-4">
-                        <div>
-                            <span class="text-sm font-medium text-gray-900">#CMD-2025-001</span>
-                            <span class="ml-4 text-sm text-gray-500">05 mars 2025</span>
+            
+                @if ($commandes->isEmpty())
+                    <p class="text-gray-500">Aucune commande trouvée.</p>
+                @else
+                    @foreach ($commandes as $commande)
+                        <div class="border rounded-lg p-4 mb-4">
+                            <div class="flex items-center justify-between mb-4">
+                                <div>
+                                    <span class="text-sm font-medium text-gray-900">#CMD-{{ $commande->id }}</span>
+                                    <span class="ml-4 text-sm text-gray-500">{{ $commande->created_at->format('d M Y') }}</span>
+                                </div>
+                                <span class="px-3 py-1 text-xs rounded-full 
+                                    @if($commande->status === 'payé') bg-green-100 text-green-800
+                                    @elseif($commande->status === 'pending') bg-yellow-100 text-yellow-800
+                                    @else bg-red-100 text-red-800 @endif">
+                                    {{ ucfirst($commande->status) }}
+                                </span>
+                            </div>
+            
+                            @foreach ($commande->produits as $produit)
+                                <div class="flex items-start space-x-4">
+                                    <img src="{{ asset('storage/' . $produit->image) }}" alt="{{ $produit->nom }}" class="w-16 h-16 rounded-lg">
+                                    <div class="flex-1">
+                                        <h4 class="text-sm font-medium text-gray-900">{{ $produit->nom }}</h4>
+                                        <p class="text-sm text-gray-500">Quantité: {{ $produit->pivot->quantity }}</p>
+                                    </div>
+                                    <div class="text-right">
+                                        <p class="text-sm font-medium text-gray-900">{{ number_format($produit->pivot->price * $produit->pivot->quantity, 2, ',', ' ') }} €</p>
+                                        <button class="text-orange-500 hover:text-orange-600 text-sm mt-2">
+                                            Voir les détails
+                                        </button>
+                                    </div>
+                                </div>
+                            @endforeach
+            
+                            <div class="mt-4 pt-4 border-t">
+                                <p class="text-sm font-medium text-gray-900">Total: {{ number_format($commande->total, 2, ',', ' ') }} €</p>
+                            </div>
                         </div>
-                        <span class="px-3 py-1 text-xs rounded-full bg-green-100 text-green-800">Livrée</span>
-                    </div>
-                    <div class="flex items-start space-x-4">
-                        <img src="https://placehold.co/100x100" alt="iPhone 15 Pro" class="w-16 h-16 rounded-lg">
-                        <div class="flex-1">
-                            <h4 class="text-sm font-medium text-gray-900">iPhone 15 Pro</h4>
-                            <p class="text-sm text-gray-500">Quantité: 1</p>
-                        </div>
-                        <div class="text-right">
-                            <p class="text-sm font-medium text-gray-900">1299.99 €</p>
-                            <button class="text-orange-500 hover:text-orange-600 text-sm mt-2">
-                                Voir les détails
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="border rounded-lg p-4">
-                    <div class="flex items-center justify-between mb-4">
-                        <div>
-                            <span class="text-sm font-medium text-gray-900">#CMD-2025-002</span>
-                            <span class="ml-4 text-sm text-gray-500">05 mars 2025</span>
-                        </div>
-                        <span class="px-3 py-1 text-xs rounded-full bg-yellow-100 text-yellow-800">En cours</span>
-                    </div>
-                    <div class="flex items-start space-x-4">
-                        <img src="https://placehold.co/100x100" alt="AirPods Pro" class="w-16 h-16 rounded-lg">
-                        <div class="flex-1">
-                            <h4 class="text-sm font-medium text-gray-900">AirPods Pro</h4>
-                            <p class="text-sm text-gray-500">Quantité: 1</p>
-                        </div>
-                        <div class="text-right">
-                            <p class="text-sm font-medium text-gray-900">279.99 €</p>
-                            <button class="text-orange-500 hover:text-orange-600 text-sm mt-2">
-                                Voir les détails
-                            </button>
-                        </div>
-                    </div>
-                </div>
+                    @endforeach
+                @endif
             </div>
         </div>
     </main>

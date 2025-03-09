@@ -29,7 +29,12 @@ class PanierController extends Controller
         $user = Auth::user();
         $panier = Panier::where('user_id', $user->id)->first();
 
-        return view('client.panier', compact('panier'));
+        // Calculate total
+        $total = $panier->produits->sum(function ($produit) {
+            return $produit->prix * $produit->pivot->quantity;
+        });
+
+        return view('client.panier', compact('panier', 'total'));
     }
 
     public function removeProduit($produitId)

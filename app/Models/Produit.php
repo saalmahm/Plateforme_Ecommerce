@@ -2,49 +2,37 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Produit extends Model
 {
-    use HasFactory;
-
     protected $fillable = [
         'nom', 
         'description', 
         'prix', 
         'category_id', 
         'stock',
-        'image'  
+        'image' 
     ];
 
-    public function category()
+    public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
     }
 
-    public function paniers()
+    public function commandes(): BelongsToMany
     {
-        return $this->belongsToMany(Panier::class, 'panier_produit')->withPivot('quantity');
+        return $this->belongsToMany(Commande::class)
+            ->withPivot(['quantity', 'price'])
+            ->withTimestamps();
     }
 
-    public function commandes()
+    public function paniers(): BelongsToMany
     {
-        return $this->belongsToMany(Commande::class, 'commande_produit')->withPivot('quantity');
-    }
-
-    public function ajouterProduit()
-    {
-        // Implémentation
-    }
-
-    public function modifierProduit()
-    {
-        // Implémentation
-    }
-
-    public function supprimerProduit()
-    {
-        // Implémentation
+        return $this->belongsToMany(Panier::class)
+            ->withPivot('quantity')
+            ->withTimestamps();
     }
 }

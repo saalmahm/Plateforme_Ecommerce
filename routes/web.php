@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\StockController; 
 use App\Http\Controllers\Client\ProduitController as ClientProduitController;
 use App\Http\Controllers\Client\PanierController;
+use App\Http\Controllers\PaymentController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -16,6 +17,12 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+
+// Show payment form
+Route::get('/payment', [PaymentController::class, 'showPaymentForm'])->name('payment.form');
+// Process payment
+Route::post('/payment/process', [PaymentController::class, 'processPayment'])->name('payment.process');
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/dashboard', function () {
@@ -66,9 +73,8 @@ Route::middleware(['auth', 'role:client'])->group(function () {
         return view('client.contact');
     })->name('client.contact');
 
-    Route::get('/client/mon-profile', function () {
-        return view('client.profile');
-    })->name('client.profile');
+    Route::get('/client/mon-profile', [ProfileController::class, 'show'])->name('client.profile');
+
 });
 
 Route::middleware('auth')->group(function () {

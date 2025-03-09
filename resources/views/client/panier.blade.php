@@ -85,9 +85,9 @@
                     </div>
 
                     <!-- Bouton Commander -->
-                    <button class="w-full mt-6 px-6 py-3 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition-colors">
+                    <a href="{{ route('payment.form') }}" class="block w-full mt-6 px-6 py-3 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition-colors text-center">
                         Procéder au paiement
-                    </button>
+                    </a>
 
                     <!-- Garanties -->
                     <div class="mt-6 space-y-4">

@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class User extends Authenticatable
 {
@@ -25,12 +27,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function panier()
+    public function panier(): HasOne
     {
         return $this->hasOne(Panier::class);
     }
-    
-    public function commandes()
+    public function commandes(): HasMany
     {
         return $this->hasMany(Commande::class);
     }

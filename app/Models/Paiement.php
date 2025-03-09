@@ -2,31 +2,19 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Paiement extends Model
 {
-    use HasFactory;
-
     protected $fillable = [
         'commande_id', 
         'montant', 
-        'method'
+        'transaction_id'
     ];
 
-    public function commande()
+    public function commande(): BelongsTo
     {
         return $this->belongsTo(Commande::class);
-    }
-
-    public function effectuerPaiement()
-    {
-        // Implémentation
-    }
-
-    public function genererRecu()
-    {
-        // Implémentation
     }
 }

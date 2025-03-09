@@ -2,46 +2,33 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Commande extends Model
 {
-    use HasFactory;
-
     protected $fillable = [
-        'user_id', 
-        'date', 
+        'user_id',
+        'total',
         'status'
     ];
 
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    public function paiement()
+    public function produits(): BelongsToMany
     {
-        return $this->hasOne(Paiement::class);
+        return $this->belongsToMany(Produit::class)
+            ->withPivot(['quantity', 'price'])
+            ->withTimestamps();
     }
 
-    public function produits()
+    public function paiements(): HasMany
     {
-        return $this->belongsToMany(Produit::class, 'commande_produit')->withPivot('quantity');
-    }
-
-    public function passerCommande()
-    {
-        // Implémentation
-    }
-
-    public function annulerCommande()
-    {
-        // Implémentation
-    }
-
-    public function suivreCommande()
-    {
-        // Implémentation
+        return $this->hasMany(Paiement::class);
     }
 }

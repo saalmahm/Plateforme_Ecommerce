@@ -16,6 +16,11 @@
     <x-navbar /> 
 
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        @if(session('success'))
+            <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-6">
+                {{ session('success') }}
+            </div>
+        @endif
         @yield('content') 
     </main>
 
